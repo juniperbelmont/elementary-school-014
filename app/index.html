@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Vaadin Elementary School</title>
+  <style>
+    html,
+    body {
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      padding: 0 20px;
+    }
+
+    vaadin-date-picker {
+      width: 200px;
+    }
+    vaadin-date-picker input[invalid] {
+      color: red !important;
+    }
+  }
+  </style>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="bower_components/vaadin-date-picker/vaadin-date-picker.html">
+  <link rel="import" href="bower_components/iron-meta/iron-meta.html">
+</head>
+
+<body>
+  <h1>Vaadin Elementary School</h1>
+
+  <vaadin-date-picker></vaadin-date-picker>
+
+
+  <vaadin-date-picker auto-validate validator="this-year-validator" label="Only this year is accepted">
+  </vaadin-date-picker>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      new Polymer.IronMeta({
+        type: 'validator',
+        key: 'this-year-validator',
+        value: {
+          validate: function(value) {
+            var currentYear = new Date().getFullYear();
+            return new Date(value).getFullYear() === currentYear;
+          }
+        }
+      });
+    });
+  </script>
+
+
+<vaadin-date-picker id="custom-validation" auto-validate label="Only this year is accepted">
+</vaadin-date-picker>
+
+<script>
+  document.addEventListener('WebComponentsReady', function() {
+    new Polymer.IronMeta({
+      type: 'validator',
+      key: 'this-year-validator',
+      value: {
+        validate: function(value) {
+          var currentYear = new Date().getFullYear();
+          return new Date(value).getFullYear() === currentYear;
+        }
+      }
+    });
+    document.querySelector('#custom-validation').validator = 'this-year-validator';
+  });
+</script>
+
+</body>
+
+</html>
